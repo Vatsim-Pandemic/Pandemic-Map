@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0d81912ea5af3a8f9c97d6cf9735331d",
+    "revision": "09273d6834d3252849ffe2f8d01fd9aa",
     "url": "/Pandemic-Map/index.html"
   },
   {
-    "revision": "0665825fc8a63d719cbd",
+    "revision": "19fc9bf445ff79cb5d18",
     "url": "/Pandemic-Map/static/css/2.098bc035.chunk.css"
   },
   {
-    "revision": "4a1339b071be7eb4da30",
+    "revision": "b2a26d1ae0de6ab9cb1b",
     "url": "/Pandemic-Map/static/css/main.01d20579.chunk.css"
   },
   {
-    "revision": "0665825fc8a63d719cbd",
-    "url": "/Pandemic-Map/static/js/2.54a4be54.chunk.js"
+    "revision": "19fc9bf445ff79cb5d18",
+    "url": "/Pandemic-Map/static/js/2.db7b58b9.chunk.js"
   },
   {
-    "revision": "4a1339b071be7eb4da30",
-    "url": "/Pandemic-Map/static/js/main.62bf6b1e.chunk.js"
+    "revision": "b2a26d1ae0de6ab9cb1b",
+    "url": "/Pandemic-Map/static/js/main.79c25c24.chunk.js"
   },
   {
     "revision": "307a79e2490bcdc6d9d1",
