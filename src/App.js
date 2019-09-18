@@ -18,10 +18,6 @@ import lab3 from './resources/lab3.png';
 import lab4 from './resources/lab4.png';
 import labS from './resources/labS.png';
 
-
-const API_URL = "http://localhost:5000"
-const MAP_KEY = "pk.eyJ1IjoiMXJldmVuZ2VyMSIsImEiOiJjazBvaW9vbzgwNGpjM2JteDljZ284MHR5In0.RFSlh7frT3KcuH5Pxof69Q"
-
 delete L.Icon.Default.prototype._getIconUrl;
 
 function getInfectionLevelString(number) {
@@ -77,13 +73,13 @@ L.Icon.Default.mergeOptions({
 });
 
 function getAirports() {
-  return fetch(API_URL + "/api/airports/allAirports")
+  return fetch(process.env.API_URL + "/api/airports/allAirports")
     .then(res => res.json())
     .catch(err => console.error(err));
 }
 
 function getLines() {
-  return fetch(API_URL + "/api/airports/getLines")
+  return fetch(process.env.API_URL + "/api/airports/getLines")
     .then(res => res.json())
     .catch(err => console.error(err));
 }
@@ -131,7 +127,7 @@ class App extends Component {
       <Map className="map" center={position} zoom={this.state.zoom} ref={(ref) => { this.map = ref; }} onZoomEnd={(event) => {this.setState((prevState) => ({...prevState}));}}>
         <TileLayer
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>'
-          url={`https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=${MAP_KEY}`}
+          url={`https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=${process.env.MAP_KEY}`}
           opacity={0.5}
         />
         {
