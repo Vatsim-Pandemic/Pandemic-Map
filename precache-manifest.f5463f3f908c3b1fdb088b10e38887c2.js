@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "df771f9bdb2fd27c1d64830aadb5f53a",
+    "revision": "d1ec482c7aca41de971d8e4c00fd64a6",
     "url": "/Pandemic-Map/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Pandemic-Map/static/css/2.098bc035.chunk.css"
   },
   {
-    "revision": "32315719b4f7d550d523",
+    "revision": "27a4ed48fcfe758cee48",
     "url": "/Pandemic-Map/static/css/main.01d20579.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Pandemic-Map/static/js/2.db7b58b9.chunk.js"
   },
   {
-    "revision": "32315719b4f7d550d523",
-    "url": "/Pandemic-Map/static/js/main.9480c314.chunk.js"
+    "revision": "27a4ed48fcfe758cee48",
+    "url": "/Pandemic-Map/static/js/main.c6005cc4.chunk.js"
   },
   {
     "revision": "307a79e2490bcdc6d9d1",

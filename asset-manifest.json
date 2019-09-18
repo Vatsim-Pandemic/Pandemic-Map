@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/Pandemic-Map/static/css/main.01d20579.chunk.css",
-    "main.js": "/Pandemic-Map/static/js/main.9480c314.chunk.js",
-    "main.js.map": "/Pandemic-Map/static/js/main.9480c314.chunk.js.map",
+    "main.js": "/Pandemic-Map/static/js/main.c6005cc4.chunk.js",
+    "main.js.map": "/Pandemic-Map/static/js/main.c6005cc4.chunk.js.map",
     "runtime~main.js": "/Pandemic-Map/static/js/runtime~main.a12c397d.js",
     "runtime~main.js.map": "/Pandemic-Map/static/js/runtime~main.a12c397d.js.map",
     "static/css/2.098bc035.chunk.css": "/Pandemic-Map/static/css/2.098bc035.chunk.css",
     "static/js/2.db7b58b9.chunk.js": "/Pandemic-Map/static/js/2.db7b58b9.chunk.js",
     "static/js/2.db7b58b9.chunk.js.map": "/Pandemic-Map/static/js/2.db7b58b9.chunk.js.map",
     "index.html": "/Pandemic-Map/index.html",
-    "precache-manifest.a30b53ee81fee44057d08eef28fde9f1.js": "/Pandemic-Map/precache-manifest.a30b53ee81fee44057d08eef28fde9f1.js",
+    "precache-manifest.f5463f3f908c3b1fdb088b10e38887c2.js": "/Pandemic-Map/precache-manifest.f5463f3f908c3b1fdb088b10e38887c2.js",
     "service-worker.js": "/Pandemic-Map/service-worker.js",
     "static/css/2.098bc035.chunk.css.map": "/Pandemic-Map/static/css/2.098bc035.chunk.css.map",
     "static/css/main.01d20579.chunk.css.map": "/Pandemic-Map/static/css/main.01d20579.chunk.css.map",
