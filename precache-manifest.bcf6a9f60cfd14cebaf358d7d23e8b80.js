@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b4bf75614d43087701cca8eac581ebba",
+    "revision": "52a360790bd3074b4162333cf2d5542c",
     "url": "/Pandemic-Map/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Pandemic-Map/static/css/2.098bc035.chunk.css"
   },
   {
-    "revision": "d197c0fe22a431d59a9c",
+    "revision": "0c22a04cafbcaa727c3f",
     "url": "/Pandemic-Map/static/css/main.01d20579.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Pandemic-Map/static/js/2.db7b58b9.chunk.js"
   },
   {
-    "revision": "d197c0fe22a431d59a9c",
-    "url": "/Pandemic-Map/static/js/main.d980f418.chunk.js"
+    "revision": "0c22a04cafbcaa727c3f",
+    "url": "/Pandemic-Map/static/js/main.6ce85311.chunk.js"
   },
   {
     "revision": "307a79e2490bcdc6d9d1",
@@ -36,12 +36,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Pandemic-Map/static/media/lab2.25d96492.png"
   },
   {
-    "revision": "4bdef6405baf247d7bcc76d14eb29515",
-    "url": "/Pandemic-Map/static/media/lab3.4bdef640.png"
+    "revision": "508af00801db09ba46154464de30932f",
+    "url": "/Pandemic-Map/static/media/lab3.508af008.png"
   },
   {
-    "revision": "e42218598f574cda3ce9730f5a223941",
-    "url": "/Pandemic-Map/static/media/lab4.e4221859.png"
+    "revision": "4c2061bcb51c4452c7950004d7a7ea68",
+    "url": "/Pandemic-Map/static/media/lab4.4c2061bc.png"
   },
   {
     "revision": "64ed19079e1e579b0747023e36f3bd21",
@@ -56,16 +56,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Pandemic-Map/static/media/tower1.ca74cfa9.png"
   },
   {
-    "revision": "b654807534d915fb00e857b6af54d9c1",
-    "url": "/Pandemic-Map/static/media/tower2.b6548075.png"
+    "revision": "bf7356cae1082a5b86502706adf73027",
+    "url": "/Pandemic-Map/static/media/tower2.bf7356ca.png"
   },
   {
-    "revision": "11445d06a6ee904ec2f5acfd7b85a397",
-    "url": "/Pandemic-Map/static/media/tower3.11445d06.png"
+    "revision": "474fd14822ed39fa6adca90f54701874",
+    "url": "/Pandemic-Map/static/media/tower3.474fd148.png"
   },
   {
-    "revision": "a893cd0d53cdc4b4da387a71f370f363",
-    "url": "/Pandemic-Map/static/media/tower4.a893cd0d.png"
+    "revision": "f0a37a5346e7acaf21cedd6ea0d25a7a",
+    "url": "/Pandemic-Map/static/media/tower4.f0a37a53.png"
   },
   {
     "revision": "bfae78a45049fa63cefa86eccada71de",
