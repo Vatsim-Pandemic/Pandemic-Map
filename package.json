@@ -2,8 +2,11 @@
   "name": "map",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://Vatsim-Pandemic.github.io/Pandemic-Map",
   "dependencies": {
     "dotenv": "^8.1.0",
+    "env-cmd": "^10.0.1",
+    "gh-pages": "^2.1.1",
     "leaflet": "^1.5.1",
     "mongodb": "^3.3.2",
     "react": "^16.9.0",
@@ -15,7 +18,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build",
+    "predeploy": "npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"

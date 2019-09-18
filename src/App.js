@@ -25,15 +25,15 @@ function getInfectionLevelString(number) {
 
   return {
     0: "Cured",
-    1: "No Risk",
-    2: "Low Risk",
-    3: "High Risk",
-    4: "Outbreak",
-    5: "Cured Lab",
-    6: "No Risk Lab",
-    7: "Low Risk Lab",
-    8: "High Risk Lab",
-    9: "Outbreak Lab",
+    1: "Level 0",
+    2: "Level 1",
+    3: "Level 2",
+    4: "Level 3",
+    5: "Cured (Lab)",
+    6: "Level 0 (Lab)",
+    7: "Level 1 (Lab)",
+    8: "Level 2 (Lab)",
+    9: "Level 3 (Lab)",
     10: "Safe",
     11: "Safe Lab",
   }[number]
@@ -73,13 +73,13 @@ L.Icon.Default.mergeOptions({
 });
 
 function getAirports() {
-  return fetch(process.env.API_URL + "/api/airports/allAirports")
+  return fetch(process.env.REACT_APP_API_URL + "/api/airports/allAirports")
     .then(res => res.json())
     .catch(err => console.error(err));
 }
 
 function getLines() {
-  return fetch(process.env.API_URL + "/api/airports/getLines")
+  return fetch(process.env.REACT_APP_API_URL + "/api/airports/getLines")
     .then(res => res.json())
     .catch(err => console.error(err));
 }
@@ -127,7 +127,7 @@ class App extends Component {
       <Map className="map" center={position} zoom={this.state.zoom} ref={(ref) => { this.map = ref; }} onZoomEnd={(event) => {this.setState((prevState) => ({...prevState}));}}>
         <TileLayer
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>'
-          url={`https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=${process.env.MAP_KEY}`}
+          url={`https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=${process.env.REACT_APP_MAP_KEY}`}
           opacity={0.5}
         />
         {
