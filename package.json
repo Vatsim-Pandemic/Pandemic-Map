@@ -2,7 +2,7 @@
   "name": "map",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://Vatsim-Pandemic.github.io/Pandemic-Map",
+  "homepage": ".",
   "dependencies": {
     "dotenv": "^8.1.0",
     "env-cmd": "^10.0.1",
