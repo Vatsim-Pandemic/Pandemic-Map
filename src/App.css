@@ -12,8 +12,14 @@ body {
   height: 100%;
 }
 
-.leaflet-tooltip-bottom {
+.leaflet-tooltip {
   background-color: rgba(238, 238, 238, 0.918);
   border-color: rgba(0, 0, 0, 0);
   padding: 2px 2px 2px 2px !important;
+}
+
+.toairport-poyline {
+  color:"#ff4f1f" !important;
+  weight: 2;
+  dashArray:"20 8"; 
 }

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Map, TileLayer, Marker, Tooltip, Polyline } from 'react-leaflet';
 import L from 'leaflet';
 import './App.css';
+import io from 'socket.io-client';
 
 import tower0 from './resources/tower0.png';
 import tower1 from './resources/tower1.png';
@@ -19,6 +20,7 @@ import lab4 from './resources/lab4.png';
 import labS from './resources/labS.png';
 
 delete L.Icon.Default.prototype._getIconUrl;
+let YX = "pk.eyJ1IjoiMXJldmVuZ2VyMSIsImEiOiJjazBvbXR2NjMwNXR0M2pteGV3aG5taWsxIn0.RUgSeKpXf66ahA-_0uZthg";
 
 function getInfectionLevelString(number) {
   number += 1;
@@ -93,11 +95,38 @@ class App extends Component {
     zoom: 7,
     airports: [],
     lines: [],
+    flights: [],
   }
 
+
   componentDidMount() {
-    this.tick();
-    this.interval = setInterval(() => this.tick(), 120000);
+    this.setState({
+      airports: [{icao:"LSGG", latitude: 46.238335, longitude: 6.109445, infectionLevel: 5},
+                 {icao:"LFML", latitude: 43.436668, longitude: 5.215,    infectionLevel: 1}],
+      lines:    [{from:{lat:46.238335, lng:6.109445}, to:{lat:43.436668, lng:5.215}}],
+      flights:  [{callsign:"IHS1503", pos:{lat: 45, lng: 6}, from:{lat:46.238335, lng:6.109445, icao:"LSGG"}, to:{lat:43.436668, lng:5.215, icao:"LFML"}}]
+    });
+
+    try {
+      this.socket = io(process.env.REACT_APP_API_URL);
+      this.socket.on('connect', (data) => {
+        // authenticate by emiting
+        this.socket.emit();
+
+        this.socket.on("eventLog", (data) => {
+        
+          // do something
+    
+        });
+      });
+
+    } catch (err) {
+      console.error("Oops, could not connect...oh well, use debug data");
+
+    }
+
+
+
   }
 
   componentDidUnmount() {
@@ -127,7 +156,7 @@ class App extends Component {
       <Map className="map" center={position} zoom={this.state.zoom} ref={(ref) => { this.map = ref; }} onZoomEnd={(event) => {this.setState((prevState) => ({...prevState}));}}>
         <TileLayer
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>'
-          url={`https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=${process.env.REACT_APP_MAP_KEY}`}
+          url={`https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=${process.env.REACT_APP_MAP_KEY || YX}`}
           opacity={0.5}
         />
         {
@@ -137,15 +166,13 @@ class App extends Component {
               icon={getAirportIcon(airport.infectionLevel)}
               key={airport.icao}
               position={[airport.latitude, airport.longitude]}>
+              
               { this.map.leafletElement.getZoom() > 6 ? <Tooltip
                 offset={[0, 15]}
                 permanent={true}
                 direction="bottom">
                 <b>{airport.icao}: </b>{getInfectionLevelString(airport.infectionLevel)}
               </Tooltip> : ''}
-              {/* <Popup>
-                <b>{airport.icao}: </b>{getInfectionLevelString(airport.infectionLevel)}
-              </Popup> */}
             </Marker>
           ))
         }
@@ -157,6 +184,43 @@ class App extends Component {
             >
             </Polyline>
           ))
+        }
+        {
+          this.state.flights.map(flight => (
+            <Marker
+              position={flight.pos}
+              key={flight.callsign}
+              onmouseover={(event) => {
+                flight.visible = true;
+                this.setState((prevState => ({...prevState})));
+              }}
+              onmouseout={(event) => {
+                flight.visible = false;
+                this.setState((prevState => ({...prevState})));
+              }}
+            >
+              { // From line
+              flight.visible ? 
+                <Polyline
+                  color="#ff4f1f"
+                  weight={2}
+                  positions={[flight.from, flight.pos]}>
+                </Polyline> : ''
+              }
+              { // To line 
+              flight.visible ?
+                <Polyline
+                  className=".toairport-polyline"
+                  positions={[flight.pos, flight.to]}>  
+                </Polyline> : ''
+              }
+              <Tooltip
+                direction="top">
+                <b>Callsign</b>: {flight.callsign}<br></br>
+                {flight.from.icao} - {flight.to.icao}
+              </Tooltip>
+            </Marker>
+          )) 
         }
       </Map>
     );
