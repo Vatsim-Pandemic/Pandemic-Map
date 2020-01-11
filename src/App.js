@@ -19,10 +19,12 @@ import lab3 from './resources/lab3.png';
 import lab4 from './resources/lab4.png';
 import labS from './resources/labS.png';
 
+import flightImg from './resources/flight.png';
+
 delete L.Icon.Default.prototype._getIconUrl;
 let YX = "pk.eyJ1IjoiMXJldmVuZ2VyMSIsImEiOiJjazBvbXR2NjMwNXR0M2pteGV3aG5taWsxIn0.RUgSeKpXf66ahA-_0uZthg";
 
-function getInfectionLevelString(number) {
+const airportStateString = (number) => {
   number += 1;
 
   return {
@@ -41,7 +43,7 @@ function getInfectionLevelString(number) {
   }[number]
 }
 
-function getAirportIcon(number) {
+const airportIcon = (number) => {
   number +=1;
 
   return L.icon({
@@ -68,24 +70,18 @@ function getAirportIcon(number) {
   });
 }
 
+const flightIcon = L.icon({
+  iconUrl: flightImg,
+  iconSize: [20, 20],
+  iconAnchor: [10, 10],
+  tooltipAnchor: [0, -6]
+})
+
 L.Icon.Default.mergeOptions({
     iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
     iconUrl: require('leaflet/dist/images/marker-icon.png'),
     shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 });
-
-function getAirports() {
-  return fetch(process.env.REACT_APP_API_URL + "/api/airports/allAirports")
-    .then(res => res.json())
-    .catch(err => console.error(err));
-}
-
-function getLines() {
-  return fetch(process.env.REACT_APP_API_URL + "/api/airports/getLines")
-    .then(res => res.json())
-    .catch(err => console.error(err));
-}
-
 
 class App extends Component {
 
@@ -98,55 +94,46 @@ class App extends Component {
     flights: [],
   }
 
-
   componentDidMount() {
-    this.setState({
-      airports: [{icao:"LSGG", latitude: 46.238335, longitude: 6.109445, infectionLevel: 5},
-                 {icao:"LFML", latitude: 43.436668, longitude: 5.215,    infectionLevel: 1}],
-      lines:    [{from:{lat:46.238335, lng:6.109445}, to:{lat:43.436668, lng:5.215}}],
-      flights:  [{callsign:"IHS1503", pos:{lat: 45, lng: 6}, from:{lat:46.238335, lng:6.109445, icao:"LSGG"}, to:{lat:43.436668, lng:5.215, icao:"LFML"}}]
+    this.socket = io(process.env.REACT_APP_API_URL);
+    this.socket.on('connect', (data) => {
+
+      this.socket.emit("pandemic.zone.getall", (data) => {
+        // position, infection, connections []
+        this.setState((prevState) => ({...prevState}))
+      });
+
+      this.socket.emit("pandemic.flight.getactive", (data) => {
+        //Flagged as departed is in in progress []
+        this.setState((prevState) => ({...prevState}));
+      });
+
+      this.socket.on("pandemic.flights.active", (data) => {
+        // All active flights []
+        this.setState((prevState) => ({...prevState}));
+      });
+
+      this.socket.on("pandemic.infections.changed", (data) => {
+        // Zones & infection level []
+        this.setState((prevState) => ({...prevState}))
+      });
     });
 
-    try {
-      this.socket = io(process.env.REACT_APP_API_URL);
-      this.socket.on('connect', (data) => {
-        // authenticate by emiting
-        this.socket.emit();
-
-        this.socket.on("eventLog", (data) => {
-        
-          // do something
-    
+    this.socket.on("connect_error", (reason) => {
+      // If we can't connnect (there is no airport data) then use our own debug data
+      if(this.state.airports.length === 0 && this.state.lines.length === 0) {
+        this.setState({
+          airports: [{icao:"LSGG", latitude: 46.238335, longitude: 6.109445, infectionLevel: 5},
+                     {icao:"LFML", latitude: 43.436668, longitude: 5.215,    infectionLevel: 1}],
+          lines:    [{from:{lat:46.238335, lng:6.109445}, to:{lat:43.436668, lng:5.215}}],
+          flights:  [{callsign:"DEBUG1503", pos:{lat: 45, lng: 6}, from:{lat:46.238335, lng:6.109445, icao:"LSGG"}, to:{lat:43.436668, lng:5.215, icao:"LFML"}}]
         });
-      });
-
-    } catch (err) {
-      console.error("Oops, could not connect...oh well, use debug data");
-
-    }
-
-
-
+      }
+    });
   }
 
-  componentDidUnmount() {
-    clearInterval(this.interval);
-  }
-
-  tick() {
-    getAirports()
-      .then(airports => {
-        this.setState({
-          airports: airports,
-        });
-      });
-
-    getLines()
-      .then(lines => {
-        this.setState({
-          lines: lines,
-        });
-      });
+  componentWillUnmount() {
+    this.socket.disconnect();
   }
 
   render() {
@@ -163,7 +150,7 @@ class App extends Component {
           //Put in airport Markers and popups
           this.state.airports.map(airport => (
             <Marker
-              icon={getAirportIcon(airport.infectionLevel)}
+              icon={airportIcon(airport.infectionLevel)}
               key={airport.icao}
               position={[airport.latitude, airport.longitude]}>
               
@@ -171,25 +158,31 @@ class App extends Component {
                 offset={[0, 15]}
                 permanent={true}
                 direction="bottom">
-                <b>{airport.icao}: </b>{getInfectionLevelString(airport.infectionLevel)}
+                <b>{airport.icao}: </b>{airportStateString(airport.infectionLevel)}
               </Tooltip> : ''}
             </Marker>
           ))
         }
         {
-          //Put in lines
+          //Put in lines between airports
           this.state.lines.map(lines => (
             <Polyline
+              key={lines.from + "_" + lines.to}
               positions={[lines.from, lines.to]}
             >
             </Polyline>
           ))
         }
         {
+          // Show flights
           this.state.flights.map(flight => (
+            // Marker for pilot
             <Marker
+              icon={flightIcon}
               position={flight.pos}
               key={flight.callsign}
+              // Only show lines between the pilot and airport
+              // if moused over
               onmouseover={(event) => {
                 flight.visible = true;
                 this.setState((prevState => ({...prevState})));
@@ -199,7 +192,8 @@ class App extends Component {
                 this.setState((prevState => ({...prevState})));
               }}
             >
-              { // From line
+              { 
+              // add lines from airport to pilot if visible
               flight.visible ? 
                 <Polyline
                   color="#ff4f1f"
@@ -207,10 +201,13 @@ class App extends Component {
                   positions={[flight.from, flight.pos]}>
                 </Polyline> : ''
               }
-              { // To line 
+              {
+              // add lines from pilot to destination airport if visible
               flight.visible ?
                 <Polyline
-                  className=".toairport-polyline"
+                  color="#ff4f1f"
+                  weight={2}
+                  dashArray="20 8" 
                   positions={[flight.pos, flight.to]}>  
                 </Polyline> : ''
               }
